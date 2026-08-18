@@ -1,13 +1,104 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #000000;
+  --color-ink-soft: #0a0a0a;
+  --color-line: #1c1c1c;
+  --color-chalk: #f2f2f0;
+  --color-ash: #8a8a85;
+  --color-accent: #e01b22;
+  --color-accent-deep: #7a0f14;
+  --color-accent-soft: #ff4d54;
+
+  --font-display: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  html {
+    background-color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+@layer components {
+  /* Micro-label: mono, uppercase, wide tracking — the Honey signature */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ash);
+  }
+
+  /* Oversized display type, optically tightened */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.88;
+  }
+
+  .rule {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Suit-seam texture: fine diagonal panel lines, barely there */
+  .seams {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(224, 27, 34, 0.05) 0px,
+      rgba(224, 27, 34, 0.05) 1px,
+      transparent 1px,
+      transparent 9px
+    );
+  }
+
+  /* Aside voice: the running commentary in the margins */
+  .aside {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--color-accent-soft);
+    opacity: 0.75;
+    font-style: italic;
+  }
+}
+
+/* The custom cursor replaces the native one on precision pointers only */
+@media (pointer: fine) {
+  body,
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
